@@ -3,11 +3,12 @@ package com.example.athletesync
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.athletesync.databinding.ActivityBmiCalculatorBinding
 import kotlin.math.pow
 
 class BmiCalculatorActivity : AppCompatActivity() {
 
-    private lateinit var binding:
+    private lateinit var binding: ActivityBmiCalculatorBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

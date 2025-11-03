@@ -68,3 +68,58 @@ class EmergencyDashboardActivity : AppCompatActivity() {
         val emergencyCount = activeIncidents.count { it.status == "Emergency" }
         val resolvedCount = activeIncidents.count { it.status == "Resolved" }
         val totalCount = activeIncidents.size
+
+        binding.tvIncidentSummary.text = "$totalCount Total • $activeCount Active • $resolvedCount Resolved"
+    }
+
+    private fun startQuickIncidentReport() {
+        val dialog = QuickIncidentDialog { report ->
+            saveQuickIncidentReport(report)
+        }
+        dialog.show(supportFragmentManager, "QuickIncidentDialog")
+    }
+
+    private fun saveQuickIncidentReport(report: QuickIncidentReport) {
+        db.collection("incident_reports")
+            .document(report.reportId)
+            .set(report)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Incident reported successfully", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Failed to report incident: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun showIncidentActions(incident: QuickIncidentReport) {
+        androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("Incident: ${incident.incidentType}")
+            .setMessage("Athlete: ${incident.athleteName}\nSeverity: ${incident.severity}\nTime: ${incident.timestamp}\n\n${incident.description}")
+            .setPositiveButton("Mark Resolved") { _, _ ->
+                updateIncidentStatus(incident.reportId, "Resolved")
+            }
+            .setNeutralButton("View Contacts") { _, _ ->
+                val intent = Intent(this, EnhancedContactsActivity::class.java)
+                startActivity(intent)
+            }
+            .setNegativeButton("Close", null)
+            .show()
+    }
+
+    private fun updateIncidentStatus(reportId: String, status: String) {
+        db.collection("incident_reports")
+            .document(reportId)
+            .update("status", status)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Incident marked as $status", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Failed to update status: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        incidentListener?.remove()
+    }
+}

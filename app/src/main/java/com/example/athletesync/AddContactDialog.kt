@@ -1,5 +1,15 @@
 package com.example.athletesync
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.os.Bundle
+import android.widget.ArrayAdapter
+import androidx.fragment.app.DialogFragment
+import com.example.athletesync.databinding.DialogAddContactBinding
+
+
 class AddContactDialog(
     private val onContactAdded: (EmergencyContact) -> Unit
 ) : DialogFragment() {

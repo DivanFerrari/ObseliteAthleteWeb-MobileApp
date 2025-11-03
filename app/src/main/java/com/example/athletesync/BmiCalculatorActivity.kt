@@ -33,3 +33,29 @@ class BmiCalculatorActivity : AppCompatActivity() {
             onBackPressed()
         }
     }
+
+    private fun calculateBMI() {
+        val heightText = binding.heightInput.text.toString()
+        val weightText = binding.weightInput.text.toString()
+
+        if (heightText.isEmpty() || weightText.isEmpty()) {
+            Toast.makeText(this, "⚠️ Please enter both height and weight", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        try {
+            val height = heightText.toFloat() / 100 // Convert cm to meters
+            val weight = weightText.toFloat()
+
+            if (height <= 0 || weight <= 0) {
+                Toast.makeText(this, "⚠️ Please enter valid positive numbers", Toast.LENGTH_SHORT).show()
+                return
+            }
+
+            val bmi = weight / (height.pow(2))
+            displayResults(bmi)
+
+        } catch (e: NumberFormatException) {
+            Toast.makeText(this, "⚠️ Please enter valid numbers", Toast.LENGTH_SHORT).show()
+        }
+    }

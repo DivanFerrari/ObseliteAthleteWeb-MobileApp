@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#0A0A0A">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#1A1A1A"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+        app:navigationIcon="?android:attr/homeAsUpIndicator"
+        app:title="Incident Reports"
+        app:titleTextColor="#FFFFFF" />
+
+    <!-- Incident Summary -->
+    <TextView
+        android:id="@+id/tvIncidentSummary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="0 Total • 0 Active • 0 Resolved"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="#FFFFFF"
+        android:background="#1A1A1A"
+        android:fontFamily="@font/roboto" />
+
+    <!-- Report Incident Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSubmitEmergency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Report New Incident"
+        android:textSize="16sp"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#E53935"
+        app:icon="@drawable/ic_add"
+        app:iconTint="#FFFFFF" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="Recent Incidents"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/roboto" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/incidentsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="8dp"
+        android:scrollbars="vertical" />
+
+</LinearLayout>

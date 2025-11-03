@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AthleteSync">
         <activity
+            android:name=".PracticeScheduleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EmergencyDashboardActivity"
+            android:exported="false" />
+        <activity
             android:name=".ChatBotActivity"
             android:exported="false" />
         <activity

@@ -51,3 +51,15 @@ data class EmergencyProtocol(
     val steps: List<String>,
     val lastUpdated: String
 )
+data class QuickIncidentReport(
+    val reportId: String = "",
+    val athleteId: String = "",
+    val athleteName: String = "",
+    val incidentType: String = "",
+    val severity: String = "Medium",
+    val description: String = "",
+    val immediateAction: String = "",
+    val timestamp: String = "",
+    val reporterName: String = "",
+    val status: String = "Active"
+) : Serializable

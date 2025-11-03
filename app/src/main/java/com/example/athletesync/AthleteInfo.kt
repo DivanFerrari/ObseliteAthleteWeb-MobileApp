@@ -21,7 +21,7 @@ data class AthleteInfo(
     val lastUpdated: String,
     val emergencyCascade: EmergencyContactCascade? = null
 ) {
-    // ✅ Add this function
+
     fun toNdefMessage(): NdefMessage {
         val jsonString = Gson().toJson(this)
         return NdefMessage(

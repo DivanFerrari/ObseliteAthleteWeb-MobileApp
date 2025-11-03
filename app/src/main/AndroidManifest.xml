@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AthleteSync">
         <activity
+            android:name=".WriteNFC"
+            android:exported="false" />
+        <activity
             android:name=".PracticeScheduleActivity"
             android:exported="false" />
         <activity

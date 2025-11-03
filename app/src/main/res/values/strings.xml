@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AthleteSync</string>
+    <string name="openweather_api_key">c0b9e2293cb4532b925d7ed359ed79da</string>
 </resources>

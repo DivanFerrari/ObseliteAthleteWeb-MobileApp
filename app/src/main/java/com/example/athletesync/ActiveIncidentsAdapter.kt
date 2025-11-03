@@ -63,3 +63,14 @@ class ActiveIncidentsAdapter(
             }
         }
     }
+
+    class IncidentDiffCallback : DiffUtil.ItemCallback<QuickIncidentReport>() {
+        override fun areItemsTheSame(oldItem: QuickIncidentReport, newItem: QuickIncidentReport): Boolean {
+            return oldItem.reportId == newItem.reportId
+        }
+
+        override fun areContentsTheSame(oldItem: QuickIncidentReport, newItem: QuickIncidentReport): Boolean {
+            return oldItem == newItem
+        }
+    }
+}

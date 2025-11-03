@@ -155,16 +155,11 @@ class DashboardActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.weatherTemperature).text = "--°C"
         findViewById<TextView>(R.id.weatherLocation).text = "Port Elizabeth" // Default to PE on error
 
-        // Show error snackbar but don't block the UI
+
         Snackbar.make(findViewById(R.id.weatherCard), "Weather: $message", Snackbar.LENGTH_LONG).show()
     }
 
     private fun setupClickListeners() {
-        val settings: CardView = findViewById(R.id.settingsCard)
-        settings.setOnClickListener {
-            val intent = Intent(this, SettingsActivity::class.java)
-            startActivity(intent)
-        }
 
         val chatbot: CardView = findViewById(R.id.FitnessBuddyChat)
         chatbot.setOnClickListener {

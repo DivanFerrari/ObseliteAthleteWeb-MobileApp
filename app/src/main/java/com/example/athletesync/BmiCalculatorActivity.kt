@@ -7,7 +7,7 @@ import kotlin.math.pow
 
 class BmiCalculatorActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityBmiCalculatorBinding
+    private lateinit var binding:
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

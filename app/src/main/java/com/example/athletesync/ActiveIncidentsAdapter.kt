@@ -1,5 +1,12 @@
 package com.example.athletesync
 
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+
 class ActiveIncidentsAdapter(
     private val onIncidentClick: (QuickIncidentReport) -> Unit
 ) : ListAdapter<QuickIncidentReport, ActiveIncidentsAdapter.IncidentViewHolder>(IncidentDiffCallback()) {

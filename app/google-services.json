@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "666054342878",
+    "project_id": "wilprototype-6a8a9",
+    "storage_bucket": "wilprototype-6a8a9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:666054342878:android:9a7dadd2240d5afab1aa4f",
+        "android_client_info": {
+          "package_name": "com.example.athletesync"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCADwEI15_fohl4EoL4BEyZNW0gfEIWjqM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:666054342878:android:f09510b33e5752eeb1aa4f",
+        "android_client_info": {
+          "package_name": "com.example.wilprototype"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCADwEI15_fohl4EoL4BEyZNW0gfEIWjqM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

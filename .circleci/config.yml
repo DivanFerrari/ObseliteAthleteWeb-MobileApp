@@ -6,7 +6,7 @@ orbs:
 jobs:
   build-test-sonar:
     docker:
-      - image: circleci/android:api-33-node
+      - image: cimg/android:2024.01.1
     working_directory: ~/project
     steps:
       - checkout

@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  test-new-token:
+  build-and-analyze:
     docker:
       - image: cimg/android:2024.01.1
     working_directory: ~/project
@@ -9,26 +9,28 @@ jobs:
       - checkout
       
       - run:
-          name: Test SonarCloud token
+          name: Build project
           command: |
-            echo "Testing SonarCloud access with new token..."
+            chmod +x ./gradlew
+            ./gradlew assemble
+      
+      - run:
+          name: SonarQube analysis
+          command: |
+            wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
+            unzip -q sonar-scanner-cli-5.0.1.3006-linux.zip
             
-            # Simple test - just check if we can access the API
-            response=$(curl -s -u "$SONAR_TOKEN": "https://sonarcloud.io/api/system/status")
-            
-            if echo "$response" | grep -q "UP"; then
-              echo "✅ SonarCloud API is accessible"
-            else
-              echo "❌ Cannot access SonarCloud API"
-              echo "Response: $response"
-            fi
-            
-            # List projects
-            echo "Listing projects..."
-            curl -s -u "$SONAR_TOKEN": "https://sonarcloud.io/api/projects/search" | grep -o '"key":"[^"]*"' | head -10
+            ./sonar-scanner-5.0.1.3006-linux/bin/sonar-scanner \
+              -Dsonar.projectKey=Liyakhanya_ObseliteAthleteWeb-MobileApp \
+              -Dsonar.organization=liyakhanya \
+              -Dsonar.host.url=https://sonarcloud.io \
+              -Dsonar.login=$SONAR_TOKEN \
+              -Dsonar.sources=app/src/main/java \
+              -Dsonar.java.binaries=app/build/intermediates/javac/debug/classes,app/build/tmp/kotlin-classes/debug
 
 workflows:
   version: 2
   main:
     jobs:
-      - test-new-token
+      - build-and-analyze:
+          context: SonarCloud

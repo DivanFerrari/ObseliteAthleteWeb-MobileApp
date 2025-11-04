@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  build-and-analyze:
+  test-new-token:
     docker:
       - image: cimg/android:2024.01.1
     working_directory: ~/project
@@ -9,32 +9,28 @@ jobs:
       - checkout
       
       - run:
-          name: Build project
+          name: Test new SonarCloud token
           command: |
-            chmod +x ./gradlew
-            ./gradlew assemble
-      
-      - run:
-          name: Install SonarScanner and run analysis
-          command: |
-            # Install SonarScanner
-            wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
-            unzip -q sonar-scanner-cli-5.0.1.3006-linux.zip
+            echo "=== Testing with new token ==="
             
-            # Run SonarScanner analysis with CORRECT project key
-            ./sonar-scanner-5.0.1.3006-linux/bin/sonar-scanner \
-              -Dsonar.projectKey=Liyakhanya_ObseliteAthleteWeb-MobileApp \
-              -Dsonar.organization=liyakhanya \
-              -Dsonar.host.url=https://sonarcloud.io \
-              -Dsonar.login=$SONAR_TOKEN \
-              -Dsonar.sources=app/src/main/java \
-              -Dsonar.java.binaries=app/build/intermediates/javac/debug/classes,app/build/tmp/kotlin-classes/debug
-      
-      - store_artifacts:
-          path: app/build/outputs
+            # Test API access
+            echo "1. Testing API connectivity..."
+            curl -s -u "$SONAR_TOKEN": "https://sonarcloud.io/api/system/status" | python3 -m json.tool
+            
+            echo "2. Listing accessible projects..."
+            curl -s -u "$SONAR_TOKEN": "https://sonarcloud.io/api/projects/search" | python3 -c "
+import json, sys
+data = json.load(sys.stdin)
+print(f'Total projects: {data.get(\"paging\", {}).get(\"total\", 0)}')
+for project in data.get('components', []):
+    print(f'✓ {project[\"key\"]} - {project[\"name\"]}')
+" || echo "No projects found"
+            
+            echo "3. Testing project-specific access..."
+            curl -s -u "$SONAR_TOKEN": "https://sonarcloud.io/api/projects/search?projects=Liyakhanya_ObseliteAthleteWeb-MobileApp" | python3 -m json.tool
 
 workflows:
   version: 2
   main:
     jobs:
-      - build-and-analyze
+      - test-new-token

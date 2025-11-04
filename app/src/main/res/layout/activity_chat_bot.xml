@@ -7,6 +7,7 @@
     tools:context=".ChatBotActivity"
     android:background="#0A0A0A">
 
+    <!-- Header with back button and title -->
     <LinearLayout
         android:id="@+id/header_layout"
         android:layout_width="match_parent"

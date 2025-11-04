@@ -1,0 +1,59 @@
+version: 2.1
+
+orbs:
+  android: circleci/android@2.1.1
+  sonarcloud: sonarsource/sonarcloud@1.0.3
+
+jobs:
+  build-and-test:
+    docker:
+      - image: circleci/android:api-33-node
+    working_directory: ~/project
+    steps:
+      - checkout
+      
+      - android/restore-build-cache
+      - android/restore-gradle-cache
+      
+      - run:
+          name: Run tests with coverage
+          command: |
+            chmod +x ./gradlew
+            ./gradlew test jacocoTestReport
+      
+      - android/save-build-cache
+      - android/save-gradle-cache
+      
+      - store_test_results:
+          path: app/build/test-results
+      - store_artifacts:
+          path: app/build/reports
+          destination: test-reports
+
+  sonar-analysis:
+    docker:
+      - image: circleci/android:api-33-node
+    working_directory: ~/project
+    steps:
+      - checkout
+      - android/restore-gradle-cache
+      
+      - run:
+          name: Run tests for Sonar analysis
+          command: |
+            chmod +x ./gradlew
+            ./gradlew test jacocoTestReport
+      
+      - sonarcloud/scan:
+          sonar-token: SONAR_TOKEN
+          # No leak period needed - uses previous version by default
+
+workflows:
+  version: 2
+  build-and-analyze:
+    jobs:
+      - build-and-test
+      - sonar-analysis:
+          requires:
+            - build-and-test
+          context: sonarcloud-context

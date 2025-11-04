@@ -25,8 +25,8 @@ jobs:
               -Dsonar.organization=liyakhanya \
               -Dsonar.host.url=https://sonarcloud.io \
               -Dsonar.token=$SONAR_TOKEN \
-              -Dsonar.sources=app/src/main/kotlin \
-              -Dsonar.exclusions=**/*.java
+              -Dsonar.sources=. \
+              -Dsonar.exclusions=**/build/**,**/*.gradle,**/gradle/**,**/.git/**
 
 workflows:
   version: 2

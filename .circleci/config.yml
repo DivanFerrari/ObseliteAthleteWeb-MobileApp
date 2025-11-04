@@ -15,7 +15,7 @@ jobs:
             ./gradlew assemble
       
       - run:
-          name: SonarQube analysis (source code only)
+          name: SonarQube analysis
           command: |
             wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
             unzip -q sonar-scanner-cli-5.0.1.3006-linux.zip
@@ -25,7 +25,8 @@ jobs:
               -Dsonar.organization=liyakhanya \
               -Dsonar.host.url=https://sonarcloud.io \
               -Dsonar.token=$SONAR_TOKEN \
-              -Dsonar.sources=app/src/main/java
+              -Dsonar.sources=app/src/main/kotlin \
+              -Dsonar.exclusions=**/*.java
 
 workflows:
   version: 2

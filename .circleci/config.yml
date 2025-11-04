@@ -15,7 +15,7 @@ jobs:
             ./gradlew assemble
       
       - run:
-          name: SonarQube analysis
+          name: SonarQube analysis (source code only)
           command: |
             wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
             unzip -q sonar-scanner-cli-5.0.1.3006-linux.zip
@@ -24,9 +24,8 @@ jobs:
               -Dsonar.projectKey=Liyakhanya_ObseliteAthleteWeb-MobileApp \
               -Dsonar.organization=liyakhanya \
               -Dsonar.host.url=https://sonarcloud.io \
-              -Dsonar.login=$SONAR_TOKEN \
-              -Dsonar.sources=app/src/main/java \
-              -Dsonar.java.binaries=app/build/intermediates/javac/debug/classes,app/build/tmp/kotlin-classes/debug
+              -Dsonar.token=$SONAR_TOKEN \
+              -Dsonar.sources=app/src/main/java
 
 workflows:
   version: 2

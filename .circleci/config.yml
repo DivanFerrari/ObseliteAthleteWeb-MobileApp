@@ -8,48 +8,19 @@ jobs:
     steps:
       - checkout
       
-      # Remove cache for now to avoid path errors
-      # - restore_cache:
-      #     keys:
-      #       - gradle-cache-{{ checksum "gradle.properties" }}
-      
       - run:
-          name: Check project structure
+          name: Install SonarScanner and run analysis
           command: |
-            echo "=== Project Structure ==="
-            ls -la
-            echo "=== Gradle Files ==="
-            find . -name "*.gradle" -type f
-            echo "=== Root build.gradle content ==="
-            cat build.gradle || echo "No build.gradle in root"
-      
-      - run:
-          name: Install SonarScanner manually
-          command: |
-            wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
-            unzip sonar-scanner-cli-5.0.1.3006-linux.zip
+            # Install SonarScanner
+            wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
+            unzip -q sonar-scanner-cli-5.0.1.3006-linux.zip
             export PATH="$PATH:$(pwd)/sonar-scanner-5.0.1.3006-linux/bin"
-      
-      - run:
-          name: Build project
-          command: |
+            
+            # Build and test
             chmod +x ./gradlew
-            ./gradlew build || echo "Build may have warnings"
-      
-      - run:
-          name: Run tests
-          command: |
-            chmod +x ./gradlew
-            if ./gradlew tasks | grep -q "test"; then
-              ./gradlew test
-            else
-              echo "No test task found"
-            fi
-      
-      - run:
-          name: SonarScanner analysis (standalone)
-          command: |
-            # Use standalone SonarScanner instead of Gradle plugin
+            ./gradlew build test
+            
+            # Run SonarScanner analysis
             sonar-scanner \
               -Dsonar.projectKey=Liyakhanya_app \
               -Dsonar.organization=liyakhanya \
@@ -57,7 +28,6 @@ jobs:
               -Dsonar.login=$SONAR_TOKEN \
               -Dsonar.sources=app/src/main/java \
               -Dsonar.java.binaries=app/build/intermediates/javac/debug/classes,app/build/tmp/kotlin-classes/debug \
-              -Dsonar.coverage.jacoco.xmlReportPaths=app/build/reports/jacoco/test/jacocoTestReport.xml \
               -Dsonar.junit.reportsPath=app/build/test-results/test \
               -Dsonar.sourceEncoding=UTF-8
       

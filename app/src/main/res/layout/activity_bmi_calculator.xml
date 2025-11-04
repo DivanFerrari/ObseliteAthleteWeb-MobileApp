@@ -204,7 +204,6 @@
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
 
-                    <!-- Reset Button -->
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/resetButton"
                         android:layout_width="0dp"
@@ -231,7 +230,6 @@
 
     </ScrollView>
 
-    <!-- Back Button at the bottom like other buttons -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/backButton"
         android:layout_width="0dp"

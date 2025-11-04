@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="relativeLayout" type="id" />
+    <item name="settingsTitle" type="id" />
+    <item name="back" type="id" />
+    <item name="divider" type="id" />
+    <item name="notificationCardview" type="id" />
+    <item name="Notifications" type="id" />
+    <item name="tvNotifications" type="id" />
+    <item name="unitCardview" type="id" />
+    <item name="UnitMeasurement" type="id" />
+    <item name="tvUnitofMeasuremen" type="id" />
+    <item name="tvCopyRight" type="id" />
+</resources>

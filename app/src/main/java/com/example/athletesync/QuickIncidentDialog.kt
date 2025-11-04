@@ -34,7 +34,6 @@ class QuickIncidentDialog(
             .setNegativeButton("Cancel", null)
             .create()
 
-        // Set black background for the dialog
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.BLACK))
         dialog.setOnShowListener {
             // Style the buttons
@@ -72,7 +71,6 @@ class QuickIncidentDialog(
             binding.spinnerSeverity.adapter = adapter
         }
 
-        // Default to Medium
         binding.spinnerSeverity.setSelection(1)
     }
 

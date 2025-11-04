@@ -1,0 +1,954 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Gallery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #7209b7;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --gray-light: #e9ecef;
+            --success: #4bb543;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --box-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: #f5f7fb;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+            header::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+                background-size: cover;
+            }
+
+            header h1 {
+                font-size: 2.5rem;
+                margin-bottom: 0.5rem;
+                font-weight: 700;
+                position: relative;
+            }
+
+            header p {
+                font-size: 1.1rem;
+                opacity: 0.9;
+                position: relative;
+            }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 30px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+        }
+
+        .tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            background: white;
+            border: none;
+            flex: 1;
+            text-align: center;
+            font-weight: 600;
+            transition: var(--transition);
+            position: relative;
+            color: var(--gray);
+        }
+
+            .tab:hover {
+                background: var(--gray-light);
+                color: var(--dark);
+            }
+
+            .tab.active {
+                color: var(--primary);
+                background: white;
+            }
+
+                .tab.active::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 3px;
+                    background: var(--primary);
+                }
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: var(--dark);
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+            h2::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 50px;
+                height: 3px;
+                background: var(--primary);
+            }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .gallery-item {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+            .gallery-item:hover {
+                transform: translateY(-5px);
+                box-shadow: var(--box-shadow-lg);
+            }
+
+            .gallery-item img {
+                width: 100%;
+                height: 220px;
+                object-fit: cover;
+                cursor: pointer;
+                transition: var(--transition);
+            }
+
+            .gallery-item:hover img {
+                transform: scale(1.05);
+            }
+
+        .image-info {
+            padding: 15px;
+        }
+
+            .image-info h3 {
+                font-size: 1.2rem;
+                margin-bottom: 8px;
+                color: var(--dark);
+                font-weight: 600;
+            }
+
+            .image-info p {
+                color: var(--gray);
+                font-size: 0.95rem;
+                line-height: 1.5;
+            }
+
+        .upload-form {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 8px;
+                font-weight: 600;
+                color: var(--dark);
+            }
+
+            .form-group input, .form-group textarea, .form-group select {
+                width: 100%;
+                padding: 12px 15px;
+                border: 1px solid var(--gray-light);
+                border-radius: 8px;
+                font-size: 1rem;
+                transition: var(--transition);
+            }
+
+                .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+                    outline: none;
+                    border-color: var(--primary);
+                    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+                }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .btn:hover {
+                background: var(--primary-dark);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            }
+
+            .btn:active {
+                transform: translateY(0);
+            }
+
+        .delete-btn {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            margin-top: 10px;
+            width: 100%;
+        }
+
+            .delete-btn:hover {
+                background: #c82333;
+                transform: translateY(-2px);
+            }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            max-width: 700px;
+            width: 100%;
+            box-shadow: var(--box-shadow-lg);
+            position: relative;
+            animation: scaleIn 0.3s ease;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+            .modal-header h2 {
+                margin: 0;
+                padding: 0;
+            }
+
+                .modal-header h2::after {
+                    display: none;
+                }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--gray);
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+            .close-modal:hover {
+                background: var(--gray-light);
+                color: var(--dark);
+            }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 60px;
+            background: var(--dark);
+            color: white;
+        }
+
+        .image-preview {
+            max-width: 100%;
+            max-height: 300px;
+            margin: 15px 0;
+            display: none;
+            border-radius: 8px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .upload-status {
+            margin: 15px 0;
+            padding: 12px 15px;
+            border-radius: 8px;
+            display: none;
+            font-weight: 500;
+        }
+
+            .upload-status.uploading {
+                background: rgba(67, 97, 238, 0.1);
+                color: var(--primary);
+                border-left: 4px solid var(--primary);
+            }
+
+            .upload-status.success {
+                background: rgba(75, 181, 67, 0.1);
+                color: var(--success);
+                border-left: 4px solid var(--success);
+            }
+
+            .upload-status.error {
+                background: rgba(220, 53, 69, 0.1);
+                color: var(--danger);
+                border-left: 4px solid var(--danger);
+            }
+
+        .file-size-warning {
+            color: var(--danger);
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+            font-weight: 500;
+        }
+
+        .admin-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+            .admin-controls input, .admin-controls select {
+                padding: 10px 15px;
+                border: 1px solid var(--gray-light);
+                border-radius: 8px;
+                font-size: 1rem;
+                flex: 1;
+                min-width: 200px;
+            }
+
+                .admin-controls input:focus, .admin-controls select:focus {
+                    outline: none;
+                    border-color: var(--primary);
+                }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            background: var(--gray);
+        }
+
+            .back-btn:hover {
+                background: #5a6268;
+            }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--gray);
+        }
+
+            .empty-state i {
+                font-size: 3rem;
+                margin-bottom: 15px;
+                opacity: 0.5;
+            }
+
+        .category-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: var(--gray-light);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+
+            .admin-controls {
+                flex-direction: column;
+            }
+
+                .admin-controls input, .admin-controls select {
+                    min-width: 100%;
+                }
+
+            .modal-content {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .tab-content {
+                padding: 20px;
+            }
+        }
+    </style>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, orderBy, query, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDjvzocgNxRbVq2Re4P4wPrlFYUXLqQVIs",
+            authDomain: "oawebsite-569ef.firebaseapp.com",
+            projectId: "oawebsite-569ef",
+            storageBucket: "oawebsite-569ef.firebasestorage.app",
+            messagingSenderId: "743749509769",
+            appId: "1:743749509769:web:6b56c73620951d59229c58",
+            databaseURL: "https://oawebsite-569ef-default-rtdb.firebaseio.com/"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+
+        const ADMIN_USER_IDS = ['XRbF8SQUb5XLTuatQN8KCEGzxY42'];
+
+        let currentUser = null;
+        let images = [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const galleryTab = document.querySelector('[data-tab="gallery"]');
+            const uploadTab = document.querySelector('[data-tab="upload"]');
+            const adminTab = document.querySelector('[data-tab="admin"]');
+            const imageGallery = document.getElementById('image-gallery');
+            const adminGallery = document.getElementById('admin-gallery');
+            const imageUploadForm = document.getElementById('image-upload-form');
+            const imageFileInput = document.getElementById('image-file');
+            const imagePreview = document.getElementById('image-preview');
+            const uploadStatus = document.getElementById('upload-status');
+            const fileSizeWarning = document.getElementById('file-size-warning');
+            const imageModal = document.getElementById('image-modal');
+            const modalImage = document.getElementById('modal-image');
+            const modalTitle = document.getElementById('modal-title');
+            const modalDescription = document.getElementById('modal-description');
+            const closeModal = document.querySelector('.close-modal');
+            const refreshImagesBtn = document.getElementById('refresh-images');
+            const searchImagesInput = document.getElementById('search-images');
+            const filterCategory = document.getElementById('filter-category');
+
+            function init() {
+                onAuthStateChanged(auth, (user) => {
+                    currentUser = user;
+                    updateUI();
+                    loadImages();
+                });
+
+                setupEventListeners();
+            }
+
+            function setupEventListeners() {
+                document.querySelectorAll('.tab').forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        const tabId = tab.getAttribute('data-tab');
+                        switchTab(tabId);
+                    });
+                });
+
+                imageUploadForm.addEventListener('submit', handleImageUpload);
+                imageFileInput.addEventListener('change', handleImageSelect);
+                closeModal.addEventListener('click', () => {
+                    imageModal.style.display = 'none';
+                });
+                refreshImagesBtn.addEventListener('click', loadImages);
+                searchImagesInput.addEventListener('input', filterAdminImages);
+                filterCategory.addEventListener('change', filterAdminImages);
+            }
+
+            function switchTab(tabId) {
+                document.querySelectorAll('.tab').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(`${tabId}-content`).classList.add('active');
+            }
+
+            async function loadImages() {
+                imageGallery.innerHTML = 'Loading...';
+                adminGallery.innerHTML = 'Loading...';
+
+                try {
+                    const q = query(collection(db, 'images'), orderBy('createdAt', 'desc'));
+                    const snapshot = await getDocs(q);
+                    images = [];
+                    snapshot.forEach(doc => {
+                        images.push({
+                            id: doc.id,
+                            ...doc.data()
+                        });
+                    });
+                    renderImages();
+                } catch (error) {
+                    console.error('Error loading images:', error);
+                    showMessage('Error loading images', 'error');
+                }
+            }
+
+            function renderImages() {
+                imageGallery.innerHTML = '';
+                adminGallery.innerHTML = '';
+
+                if (images.length === 0) {
+                    imageGallery.innerHTML = '<div class="empty-state">No images found</div>';
+                    adminGallery.innerHTML = '<div class="empty-state">No images found</div>';
+                    return;
+                }
+
+                images.forEach(image => {
+                    const imageElement = createImageElement(image, false);
+                    imageGallery.appendChild(imageElement);
+                });
+
+                if (currentUser && isAdmin()) {
+                    images.forEach(image => {
+                        const imageElement = createImageElement(image, true);
+                        adminGallery.appendChild(imageElement);
+                    });
+                }
+            }
+
+            function createImageElement(image, isAdminView) {
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item';
+                galleryItem.setAttribute('data-id', image.id);
+                galleryItem.setAttribute('data-category', image.category || 'other');
+
+
+                const imageSrc = image.base64Data || image.url;
+
+                galleryItem.innerHTML = `
+                            <img src="${imageSrc}" alt="${image.title}" onerror="this.src='https://via.placeholder.com/400x300/cccccc/969696?text=Image+Not+Found'">
+                            <div class="image-info">
+                                <h3>${image.title}</h3>
+                                <p>${image.description || ''}</p>
+                                <div class="category-badge">${image.category || 'other'}</div>
+                                ${isAdminView ? `<button class="delete-btn">Delete</button>` : ''}
+                            </div>
+                        `;
+
+                galleryItem.querySelector('img').addEventListener('click', () => {
+                    showImageModal(image);
+                });
+
+                if (isAdminView) {
+                    galleryItem.querySelector('.delete-btn').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        deleteImage(image.id);
+                    });
+                }
+
+                return galleryItem;
+            }
+
+            function showImageModal(image) {
+                const imageSrc = image.base64Data || image.url;
+                modalImage.src = imageSrc;
+                modalTitle.textContent = image.title;
+                modalDescription.textContent = image.description || '';
+                imageModal.style.display = 'flex';
+            }
+
+            function isAdmin() {
+                return currentUser && ADMIN_USER_IDS.includes(currentUser.uid);
+            }
+
+            function handleImageSelect(event) {
+                const file = event.target.files[0];
+                if (file) {
+
+                    const maxSize = 1 * 1024 * 1024;
+                    if (file.size > maxSize) {
+                        fileSizeWarning.style.display = 'block';
+                        fileSizeWarning.textContent = 'File too large! Please select an image smaller than 1MB.';
+                        imageFileInput.value = '';
+                        imagePreview.style.display = 'none';
+                        return;
+                    } else {
+                        fileSizeWarning.style.display = 'none';
+                    }
+
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        imagePreview.src = e.target.result;
+                        imagePreview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+
+            function fileToBase64(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = error => reject(error);
+                });
+            }
+
+            async function handleImageUpload(e) {
+                e.preventDefault();
+
+                if (!currentUser) {
+                    showMessage('Please login to upload images', 'error');
+                    window.location.href = 'auth.html';
+                    return;
+                }
+
+
+                if (!isAdmin()) {
+                    showMessage('Only administrators can upload images', 'error');
+                    return;
+                }
+
+                const title = document.getElementById('image-title').value;
+                const description = document.getElementById('image-description').value;
+                const category = document.getElementById('image-category').value;
+                const file = imageFileInput.files[0];
+
+                if (!file) {
+                    showMessage('Please select an image file', 'error');
+                    return;
+                }
+
+
+                const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+                if (!validTypes.includes(file.type)) {
+                    showMessage('Please select a valid image file (JPEG, PNG, GIF, WebP)', 'error');
+                    return;
+                }
+
+
+                const maxSize = 1 * 1024 * 1024;
+                if (file.size > maxSize) {
+                    showMessage('Image must be smaller than 1MB for free storage', 'error');
+                    return;
+                }
+
+                try {
+
+                    uploadStatus.textContent = 'Converting and uploading image...';
+                    uploadStatus.className = 'upload-status uploading';
+                    uploadStatus.style.display = 'block';
+
+
+                    const base64Data = await fileToBase64(file);
+
+
+                    await addDoc(collection(db, 'images'), {
+                        title,
+                        description,
+                        base64Data: base64Data,
+                        category,
+                        createdAt: serverTimestamp(),
+                        createdBy: currentUser.uid,
+                        fileName: file.name,
+                        fileSize: file.size,
+                        fileType: file.type
+                    });
+
+
+                    imageUploadForm.reset();
+                    imagePreview.style.display = 'none';
+                    uploadStatus.style.display = 'none';
+                    fileSizeWarning.style.display = 'none';
+
+                    loadImages();
+                    showMessage('Image uploaded successfully!', 'success');
+                    switchTab('gallery');
+                } catch (error) {
+                    console.error("Error uploading image: ", error);
+                    uploadStatus.textContent = 'Upload failed. Please try again.';
+                    uploadStatus.className = 'upload-status error';
+                    showMessage('Error uploading image', 'error');
+                }
+            }
+
+            async function deleteImage(id) {
+                if (!currentUser) {
+                    showMessage('Please login to delete images', 'error');
+                    window.location.href = 'auth.html';
+                    return;
+                }
+
+
+                if (!isAdmin()) {
+                    showMessage('Only administrators can delete images', 'error');
+                    return;
+                }
+
+                if (!confirm('Delete this image?')) return;
+
+                try {
+                    await deleteDoc(doc(db, 'images', id));
+                    loadImages();
+                    showMessage('Image deleted', 'success');
+                } catch (error) {
+                    showMessage('Error deleting image', 'error');
+                }
+            }
+
+            function filterAdminImages() {
+                const searchTerm = searchImagesInput.value.toLowerCase();
+                const categoryFilter = filterCategory.value;
+                const adminGalleryItems = adminGallery.querySelectorAll('.gallery-item');
+
+                adminGalleryItems.forEach(item => {
+                    const title = item.querySelector('h3').textContent.toLowerCase();
+                    const description = item.querySelector('p').textContent.toLowerCase();
+                    const category = item.getAttribute('data-category');
+
+                    const matchesSearch = title.includes(searchTerm) || description.includes(searchTerm);
+                    const matchesCategory = !categoryFilter || category === categoryFilter;
+
+                    item.style.display = (matchesSearch && matchesCategory) ? 'block' : 'none';
+                });
+            }
+
+            function updateUI() {
+                if (currentUser) {
+                    if (isAdmin()) {
+                        uploadTab.style.display = 'block';
+                        adminTab.style.display = 'block';
+                    } else {
+                        uploadTab.style.display = 'none';
+                        adminTab.style.display = 'none';
+                    }
+                } else {
+                    uploadTab.style.display = 'none';
+                    adminTab.style.display = 'none';
+
+                    if (document.getElementById('admin-content').classList.contains('active') || document.getElementById('upload-content').classList.contains('active')) {
+                        switchTab('gallery');
+                    }
+                }
+            }
+
+            function showMessage(message, type) {
+                // Simple alert for messages
+                alert(`${type.toUpperCase()}: ${message}`);
+            }
+
+            init();
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Image Gallery</h1>
+        <p>View and manage images</p>
+    </header>
+
+    <div class="container">
+        <div class="tabs">
+            <div class="tab active" data-tab="gallery">Gallery</div>
+            <div class="tab" data-tab="upload" id="upload-tab">Upload</div>
+            <div class="tab" data-tab="admin" id="admin-tab">Admin</div>
+        </div>
+
+        <div class="tab-content active" id="gallery-content">
+            <h2>Image Gallery</h2>
+            <div class="gallery" id="image-gallery"></div>
+        </div>
+
+        <div class="tab-content" id="upload-content">
+            <h2>Upload New Image</h2>
+            <div class="upload-form">
+                <form id="image-upload-form">
+                    <div class="form-group">
+                        <label for="image-title">Image Title</label>
+                        <input type="text" id="image-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="image-description">Description</label>
+                        <textarea id="image-description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="image-file">Select Image from Device</label>
+                        <input type="file" id="image-file" accept="image/*" required>
+                        <small>Supported formats: JPEG, PNG, GIF, WebP (Max 1MB for free storage)</small>
+                        <div id="file-size-warning" class="file-size-warning"></div>
+                    </div>
+                    <div class="form-group">
+                        <img id="image-preview" class="image-preview" alt="Image preview">
+                        <div id="upload-status" class="upload-status"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="image-category">Category</label>
+                        <select id="image-category">
+                            <option value="nature">Nature</option>
+                            <option value="urban">Urban</option>
+                            <option value="people">People</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn">Upload Image</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="tab-content" id="admin-content">
+            <h2>Admin Panel</h2>
+            <div class="admin-controls">
+                <button class="btn" id="refresh-images">Refresh</button>
+                <input type="text" id="search-images" placeholder="Search...">
+                <select id="filter-category">
+                    <option value="">All Categories</option>
+                    <option value="nature">Nature</option>
+                    <option value="urban">Urban</option>
+                    <option value="people">People</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="gallery" id="admin-gallery"></div>
+        </div>
+    </div>
+
+    <div class="modal" id="image-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Image</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <img id="modal-image" src="" alt="" style="width: 100%; max-height: 70vh; object-fit: contain;">
+            <p id="modal-description" style="margin-top: 15px;"></p>
+        </div>
+    </div>
+
+    <div class="container">
+        <a href="index.html" class="btn back-btn">Back to Dashboard</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Image Gallery</p>
+    </footer>
+</body>
+</html>

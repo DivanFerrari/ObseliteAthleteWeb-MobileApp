@@ -1,0 +1,154 @@
+﻿body {
+    padding: 20px 40px;
+    width: 50vw;
+    margin: auto;
+}
+
+.card {
+    border: 1px solid #aaaa;
+    padding: 20px 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.presets {
+    display: flex;
+    justify-content: center;
+    gap: 10px; 
+}
+
+.donatecontainer{
+    border: 1px solid rgb(255 255 255);
+    border-radius: 10px;
+    background-color: red;
+    padding: 0px 10px;
+    opacity: 0.6;
+}
+
+.donateheader {
+    font-weight: 80;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: white;
+    text-align: center;
+}
+
+.preset{
+    border: 1px solid rgb(255 255 255);
+    border-radius: 5px;
+    padding: 5px 10px;
+    background: red;
+    opacity: 0.6;
+    color: white;
+}
+
+.preset:hover{
+    color: red;
+    opacity: 0.6;
+    background: white;
+    border: 1px solid red;
+}
+
+#donateForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+    max-width: 350px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+}
+
+    #donateForm label {
+        display: flex;
+        flex-direction: column;
+        font-size: 13px;
+        font-weight: 100;
+    }
+
+    #donateForm input {
+        padding: 10px;
+        margin-top: 5px;
+        font-size: 14px;
+        border: 1px solid #aaa;
+        border-radius: 6px;
+    }
+
+.donatebtn {
+    padding: 12px;
+    background: red;
+    opacity: 0.7;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+    .donatebtn:hover {
+        background: white;
+        border: 1px solid red;
+        color: red;
+    }
+
+.backbtn {
+    text-decoration: none;
+    border: 1px solid #aaa;
+    padding: 7px 15px;
+    border-radius: 5px;
+    background: #aaa;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.backbtn:hover{
+    border: 1px solid #aaaa;
+    background: white;
+    color: grey;
+}
+
+.backbtn i {
+    margin-right: 7px;
+}
+
+.success-card{
+    border: 1px solid #aaaa;
+    padding: 15px 20px;
+    border-radius: 8px;
+    background: #1dff00;
+    opacity: 0.7;
+    width: 30vw;
+    justify-self: center; 
+    margin-top: 30px;
+}
+
+.success-header{
+    color: white;
+    font-family: Arial, sans-serif;
+    font-weight: 100;
+   text-align: center;
+}
+
+.success-card p{
+    text-decoration: none;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    text-align: center;
+}
+
+.success-card a {
+    text-decoration: none;
+    color: aliceblue;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    display: flex;
+}
+
+.successhref {
+    display: flex;
+    gap: 25px;
+    margin-top: 30px;
+    justify-content: space-between;
+}
+

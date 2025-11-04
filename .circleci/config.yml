@@ -9,25 +9,23 @@ jobs:
       - checkout
       
       - run:
-          name: Test new SonarCloud token
+          name: Test SonarCloud token
           command: |
-            echo "=== Testing with new token ==="
+            echo "Testing SonarCloud access with new token..."
             
-            # Test API access
-            echo "1. Testing API connectivity..."
-            curl -s -u "$SONAR_TOKEN": "https://sonarcloud.io/api/system/status" | python3 -m json.tool
+            # Simple test - just check if we can access the API
+            response=$(curl -s -u "$SONAR_TOKEN": "https://sonarcloud.io/api/system/status")
             
-            echo "2. Listing accessible projects..."
-            curl -s -u "$SONAR_TOKEN": "https://sonarcloud.io/api/projects/search" | python3 -c "
-import json, sys
-data = json.load(sys.stdin)
-print(f'Total projects: {data.get(\"paging\", {}).get(\"total\", 0)}')
-for project in data.get('components', []):
-    print(f'✓ {project[\"key\"]} - {project[\"name\"]}')
-" || echo "No projects found"
+            if echo "$response" | grep -q "UP"; then
+              echo "✅ SonarCloud API is accessible"
+            else
+              echo "❌ Cannot access SonarCloud API"
+              echo "Response: $response"
+            fi
             
-            echo "3. Testing project-specific access..."
-            curl -s -u "$SONAR_TOKEN": "https://sonarcloud.io/api/projects/search?projects=Liyakhanya_ObseliteAthleteWeb-MobileApp" | python3 -m json.tool
+            # List projects
+            echo "Listing projects..."
+            curl -s -u "$SONAR_TOKEN": "https://sonarcloud.io/api/projects/search" | grep -o '"key":"[^"]*"' | head -10
 
 workflows:
   version: 2

@@ -1,431 +1,246 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0A0A0A"
-    android:padding="16dp">
+    tools:context=".ReadNFC">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#1A1A1A"
+        android:elevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Scan Prompt Group -->
-        <LinearLayout
-            android:id="@+id/scanPromptGroup"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:orientation="vertical"
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Back"
+            android:src="@drawable/ic_back"
+            app:tint="#E53935" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:gravity="center"
-            android:background="#1A1A1A"
-            android:padding="24dp"
-            app:cardCornerRadius="16dp">
+            android:textAlignment="center"
+            android:fontFamily="@font/michroma"
+            android:text="Read Medical Data"
+            android:textColor="#E53935"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mainCard"
+        android:layout_width="0dp"
+        android:layout_height="400dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="32dp"
+        app:cardBackgroundColor="#1A1A1A"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:strokeColor="#E53935"
+        app:strokeWidth="2dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="32dp">
 
             <ImageView
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:id="@+id/nfcIcon"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:src="@drawable/nfc"
-                android:tint="#E53935"
-                android:layout_marginBottom="24dp" />
+                app:tint="#E53935"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Scan Athlete NFC Tag"
-                android:textColor="#FFFFFF"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:fontFamily="@font/roboto"
-                android:layout_marginBottom="16dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Tap an NFC tag to read athlete information"
-                android:textColor="#CCCCCC"
-                android:textSize="16sp"
-                android:fontFamily="@font/roboto" />
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="wrap_content"
+                android:id="@+id/instructionText"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:indeterminateTint="#E53935"
-                android:visibility="gone" />
-        </LinearLayout>
+                android:fontFamily="@font/orbitron"
+                android:gravity="center"
+                android:text="Tap NFC Tag to Read Medical Information"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nfcIcon" />
 
-        <!-- Athlete Info Group -->
+            <TextView
+                android:id="@+id/text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:text="No data read yet"
+                android:textColor="#CCCCCC"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/instructionText" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/retryButton"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginTop="45dp"
+                android:backgroundTint="#E53935"
+                android:text="Retry"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                app:cornerRadius="12dp"
+                app:icon="@drawable/ic_refresh"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp"
+                app:iconTint="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_view" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/dataCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="24dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="#1A1A1A"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainCard"
+        app:strokeColor="#E53935"
+        app:strokeWidth="1dp">
+
         <LinearLayout
-            android:id="@+id/athleteInfoGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:padding="24dp">
 
-            <!-- Header -->
-            <com.google.android.material.card.MaterialCardView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/michroma"
+                android:text="Medical Information"
+                android:textColor="#E53935"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="#E53935"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto"
+                    android:text="Blood Type:"
+                    android:textColor="#CCCCCC"
+                    android:textSize="14sp" />
 
-                    <TextView
-                        android:id="@+id/tvAthleteName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Athlete Name"
-                        android:textColor="#FFFFFF"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/roboto" />
+                <TextView
+                    android:id="@+id/bloodTypeText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto"
+                    android:text="A+"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tvAthleteId"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="ID: OBA1234"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16sp"
-                        android:layout_marginTop="4dp" />
+            </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/tvSportPosition"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Sport • Position"
-                        android:textColor="#FFFFFF"
-                        android:textSize="14sp"
-                        android:layout_marginTop="4dp" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Medical Information -->
-            <com.google.android.material.card.MaterialCardView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="#FFFFFF"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp"
-                app:strokeColor="#E53935"
-                app:strokeWidth="1dp">
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto"
+                    android:text="Height:"
+                    android:textColor="#CCCCCC"
+                    android:textSize="14sp" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Medical Information"
-                        android:textStyle="bold"
-                        android:textColor="#000000"
-                        android:textSize="18sp"
-                        android:layout_marginBottom="12dp"
-                        android:fontFamily="@font/roboto" />
+                <TextView
+                    android:id="@+id/heightText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto"
+                    android:text="180 cm"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="8dp">
+            </LinearLayout>
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Blood Type:"
-                            android:textStyle="bold"
-                            android:textColor="#000000" />
-
-                        <TextView
-                            android:id="@+id/tvBloodTypeValue"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="O+"
-                            android:textColor="#000000" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="8dp">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Allergies:"
-                            android:textStyle="bold"
-                            android:textColor="#000000" />
-
-                        <TextView
-                            android:id="@+id/tvAllergiesValue"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="None"
-                            android:textColor="#000000" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Medical Conditions:"
-                            android:textStyle="bold"
-                            android:textColor="#000000" />
-
-                        <TextView
-                            android:id="@+id/tvMedicalConditionsValue"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="None"
-                            android:textColor="#000000" />
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Physical Stats -->
-            <com.google.android.material.card.MaterialCardView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="#FFFFFF"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp"
-                app:strokeColor="#E53935"
-                app:strokeWidth="1dp">
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto"
+                    android:text="Weight:"
+                    android:textColor="#CCCCCC"
+                    android:textSize="14sp" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Physical Stats"
-                        android:textStyle="bold"
-                        android:textColor="#000000"
-                        android:textSize="18sp"
-                        android:layout_marginBottom="12dp"
-                        android:fontFamily="@font/roboto" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="8dp">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Height:"
-                            android:textStyle="bold"
-                            android:textColor="#000000" />
-
-                        <TextView
-                            android:id="@+id/tvHeightValue"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="180 cm"
-                            android:textColor="#000000" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Weight:"
-                            android:textStyle="bold"
-                            android:textColor="#000000" />
-
-                        <TextView
-                            android:id="@+id/tvWeightValue"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="75 kg"
-                            android:textColor="#000000" />
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Emergency Contact -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="#E53935"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/weightText"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto"
+                    android:text="75 kg"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Emergency Contact"
-                        android:textStyle="bold"
-                        android:textColor="#FFFFFF"
-                        android:textSize="18sp"
-                        android:layout_marginBottom="12dp"
-                        android:fontFamily="@font/roboto" />
-
-                    <TextView
-                        android:id="@+id/tvEmergencyContact"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="+1234567890"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16sp"
-                        android:layout_marginBottom="8dp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Date of Birth:"
-                            android:textColor="#FFFFFF"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tvDateOfBirthValue"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="2000-01-01"
-                            android:textColor="#FFFFFF" />
-                    </LinearLayout>
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnEmergencyCall"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="Call Emergency Contact"
-                        android:textColor="#FFFFFF"
-                        android:backgroundTint="#1A1A1A"
-                        app:icon="@drawable/ic_emergency"
-                        app:iconTint="#FFFFFF" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Coach Notes -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="#FFFFFF"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp"
-                app:strokeColor="#E53935"
-                app:strokeWidth="1dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Coach Notes"
-                        android:textStyle="bold"
-                        android:textColor="#000000"
-                        android:textSize="18sp"
-                        android:layout_marginBottom="12dp"
-                        android:fontFamily="@font/roboto" />
-
-                    <TextView
-                        android:id="@+id/tvCoachNotesValue"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="No notes available"
-                        android:textSize="14sp"
-                        android:textColor="#000000" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="12dp">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Last Updated:"
-                            android:textStyle="bold"
-                            android:textColor="#000000" />
-
-                        <TextView
-                            android:id="@+id/tvLastUpdatedValue"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="2024-01-01"
-                            android:gravity="end"
-                            android:textColor="#000000" />
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Action Button -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnScanAnother"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:text="Scan Another Tag"
-                android:textColor="#FFFFFF"
-                android:backgroundTint="#E53935"
-                app:icon="@drawable/nfc"
-                app:iconTint="#FFFFFF" />
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
-</ScrollView>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

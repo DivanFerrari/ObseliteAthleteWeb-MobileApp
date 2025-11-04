@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.athletesync" />
+                  <option name="mobileSdkAppId" value="1:666054342878:android:9a7dadd2240d5afab1aa4f" />
+                  <option name="projectId" value="wilprototype-6a8a9" />
+                  <option name="projectNumber" value="666054342878" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

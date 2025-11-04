@@ -8,30 +8,60 @@ jobs:
     steps:
       - checkout
       
-      # Restore Gradle cache manually
+      # Restore Gradle cache with correct file path
       - restore_cache:
           keys:
-            - gradle-cache-{{ checksum "build.gradle" }}
+            - gradle-cache-{{ checksum "app/build.gradle" }}
             - gradle-cache-
       
       - run:
-          name: Run SonarQube analysis with Gradle
+          name: List available Gradle tasks
           command: |
             chmod +x ./gradlew
-            ./gradlew test jacocoTestReport sonar \
-              -Dsonar.projectKey=Liyakhanya_app \
-              -Dsonar.organization=liyakhanya \
-              -Dsonar.host.url=https://sonarcloud.io \
-              -Dsonar.login=$SONAR_TOKEN \
-              -Dsonar.sources=app/src/main/java \
-              -Dsonar.coverage.jacoco.xmlReportPaths=app/build/reports/jacoco/test/jacocoTestReport.xml
+            ./gradlew tasks --all || true
       
-      # Save Gradle cache manually
+      - run:
+          name: Run tests and generate coverage
+          command: |
+            chmod +x ./gradlew
+            # First try to run tests, then check if jacoco reports exist
+            ./gradlew test
+            # Check if jacoco reports were generated automatically
+            if [ -f "app/build/reports/jacoco/test/jacocoTestReport.xml" ]; then
+              echo "Jacoco report found, proceeding with Sonar analysis"
+            else
+              echo "No jacoco report found, running with test coverage enabled"
+              ./gradlew test -DtestCoverageEnabled=true
+            fi
+      
+      - run:
+          name: SonarQube analysis
+          command: |
+            chmod +x ./gradlew
+            # Try different approaches for Sonar analysis
+            if [ -f "app/build/reports/jacoco/test/jacocoTestReport.xml" ]; then
+              ./gradlew sonar \
+                -Dsonar.projectKey=Liyakhanya_app \
+                -Dsonar.organization=liyakhanya \
+                -Dsonar.host.url=https://sonarcloud.io \
+                -Dsonar.login=$SONAR_TOKEN \
+                -Dsonar.sources=app/src/main/java \
+                -Dsonar.coverage.jacoco.xmlReportPaths=app/build/reports/jacoco/test/jacocoTestReport.xml
+            else
+              ./gradlew sonar \
+                -Dsonar.projectKey=Liyakhanya_app \
+                -Dsonar.organization=liyakhanya \
+                -Dsonar.host.url=https://sonarcloud.io \
+                -Dsonar.login=$SONAR_TOKEN \
+                -Dsonar.sources=app/src/main/java
+            fi
+      
+      # Save Gradle cache with correct file path
       - save_cache:
           paths:
             - ~/.gradle/caches
             - ~/.gradle/wrapper
-          key: gradle-cache-{{ checksum "build.gradle" }}
+          key: gradle-cache-{{ checksum "app/build.gradle" }}
       
       - store_test_results:
           path: app/build/test-results

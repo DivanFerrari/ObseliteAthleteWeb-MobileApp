@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Obselite Athlete">
+    <meta name="author" content="Obselite Athlete">
+    <title>www.O.AFoundation.co.za</title>
+    <link rel="stylesheet" href="assets/vendors/themify-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --primary-red: #dc3545;
+            --dark-red: #c82333;
+            --black: #000000;
+            --dark-gray: #1a1a1a;
+            --medium-gray: #333333;
+            --light-gray: #f8f9fa;
+            --white: #ffffff;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--black) 0%, var(--dark-gray) 100%);
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .navbar {
+            background: var(--dark-gray) !important;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .navbar-brand img {
+            filter: brightness(0) invert(1);
+        }
+
+        .nav-link {
+            color: var(--white) !important;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+            .nav-link:hover {
+                color: var(--primary-red) !important;
+            }
+
+        .btn-primary {
+            background: var(--primary-red);
+            border: 2px solid var(--primary-red);
+            color: var(--white);
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 25px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4);
+        }
+
+            .btn-primary:hover {
+                background: var(--dark-red);
+                border-color: var(--dark-red);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(220, 53, 69, 0.6);
+            }
+
+        .header {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('assets/imgs/backgroundOA.jpg') no-repeat center center;
+            background-size: cover;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+            .header .overlay {
+                background: rgba(0, 0, 0, 0.4);
+            }
+
+            .header .title {
+                color: var(--white);
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+                font-weight: 700;
+                font-size: 3.5rem;
+            }
+
+            .header .subtitle {
+                color: var(--primary-red);
+                letter-spacing: 8px;
+                font-weight: 600;
+                font-size: 1.5rem;
+                text-transform: uppercase;
+            }
+
+            .header .shape svg path {
+                fill: var(--dark-gray);
+            }
+
+        .section {
+            background: var(--dark-gray);
+            color: var(--white);
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+            .section:nth-child(even) {
+                background: var(--black);
+            }
+
+        .section-title {
+            color: var(--white);
+            font-weight: 600;
+            font-size: 1.8rem;
+        }
+
+        .section-subtitle {
+            color: #ccc;
+            font-weight: 400;
+        }
+
+        .blue-text {
+            color: var(--primary-red) !important;
+        }
+
+        .card {
+            background: var(--medium-gray);
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            color: var(--white);
+            transition: var(--transition);
+            height: 100%;
+        }
+
+            .card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+                border-color: var(--primary-red);
+            }
+
+        .card-body {
+            color: var(--white);
+            padding: 2rem;
+        }
+
+        .text-primary {
+            color: var(--primary-red) !important;
+        }
+
+        .btn-outline-primary {
+            border: 2px solid var(--primary-red);
+            color: var(--primary-red);
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 12px 30px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: var(--transition);
+            background: transparent;
+        }
+
+            .btn-outline-primary:hover {
+                background: var(--primary-red);
+                border-color: var(--primary-red);
+                color: var(--white);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+            }
+
+        .has-img-bg {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('assets/imgs/section.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .form-control {
+            background: var(--medium-gray);
+            border: 2px solid var(--medium-gray);
+            color: var(--white);
+            border-radius: 8px;
+            padding: 15px 20px;
+            font-family: 'Montserrat', sans-serif;
+            transition: var(--transition);
+        }
+
+            .form-control:focus {
+                background: var(--dark-gray);
+                border-color: var(--primary-red);
+                color: var(--white);
+                box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.2);
+            }
+
+            .form-control::placeholder {
+                color: #888;
+            }
+
+        footer {
+            background: var(--black) !important;
+            border-top: 1px solid var(--medium-gray) !important;
+            color: #999 !important;
+        }
+
+            footer a {
+                color: var(--primary-red) !important;
+                transition: var(--transition);
+            }
+
+                footer a:hover {
+                    color: var(--white) !important;
+                }
+
+        .media {
+            color: var(--white);
+        }
+
+        .dropdown-menu {
+            background: var(--medium-gray);
+            border: 1px solid var(--medium-gray);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 10px 0;
+            min-width: 200px;
+        }
+
+        .dropdown-item {
+            color: var(--white);
+            padding: 10px 20px;
+            font-weight: 500;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+            .dropdown-item:hover {
+                background: var(--primary-red);
+                color: var(--white);
+            }
+
+            .dropdown-item.text-danger {
+                color: var(--primary-red) !important;
+            }
+
+                .dropdown-item.text-danger:hover {
+                    background: var(--primary-red);
+                    color: var(--white) !important;
+                }
+
+        .dropdown-divider {
+            border-color: var(--medium-gray);
+            margin: 8px 0;
+        }
+
+        .toast-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary-red);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 10000;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+        }
+
+            .toast-notification.show {
+                transform: translateX(0);
+            }
+
+            .toast-notification.error {
+                background: var(--primary-red);
+            }
+
+            .toast-notification.success {
+                background: #28a745;
+            }
+
+        .spinner-border {
+            width: 1rem;
+            height: 1rem;
+            border-width: 2px;
+        }
+
+        .mouse-icon {
+            border: 2px solid var(--white);
+        }
+
+            .mouse-icon .wheel {
+                background: var(--white);
+            }
+
+        p, .text-muted {
+            color: #ccc !important;
+            line-height: 1.6;
+            letter-spacing: 0.3px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        a {
+            color: var(--primary-red);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+            a:hover {
+                color: var(--white);
+            }
+
+        .shadow-sm {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
+            border-radius: var(--border-radius);
+        }
+
+        .btn {
+            border-radius: 50px;
+            border: 2px solid;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 12px 30px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .header .title {
+                font-size: 2.5rem;
+            }
+
+            .header .subtitle {
+                font-size: 1rem;
+                letter-spacing: 4px;
+            }
+
+            .card-body {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+
+    <nav class="navbar custom-navbar navbar-expand-md navbar-light fixed-top" data-spy="affix" data-offset-top="10">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="assets/imgs/OA vector logo  2.png" alt="Obselite Athlete">
+            </a>
+            <button class="navbar-toggler ml-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#service">What We Offer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Gallery.html">Gallery</a>
+                    </li>
+
+                    <li class="nav-item dropdown" id="user-profile-container">
+                        <a class="nav-link dropdown-toggle btn btn-primary btn-sm rounded" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="display: none;">
+                            <i class="fas fa-user me-1"></i>
+                            <span id="user-name">Account</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li>
+                                <a class="dropdown-item" href="Profile.html">
+                                    <i class="fas fa-user-circle me-2"></i>Profile
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="donate.html">
+                                    <i class="fas fa-donate me-2"></i>Donate
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item text-danger" href="#" id="logout-btn">
+                                    <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item" id="get-started-item">
+                        <a href="Authentication.html" class="ml-4 nav-link btn btn-primary btn-sm rounded">
+                            <i class="fas fa-user-plus me-1"></i>Get Started
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="header">
+        <div class="overlay">
+            <h1 class="subtitle">Obselite Athlete</h1>
+            <h1 class="title">Skills Development & Training</h1>
+        </div>
+        <div class="shape">
+            <svg viewBox="0 0 1500 200">
+                <path d="m 0,240 h 1500.4828 v -71.92164 c 0,0 -286.2763,-81.79324 -743.19024,-81.79324 C 300.37862,86.28512 0,168.07836 0,168.07836 Z" />
+            </svg>
+        </div>
+        <div class="mouse-icon"><div class="wheel"></div></div>
+    </header>
+
+    <section class="section" id="about">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-md-6 pr-md-5 mb-4 mb-md-0">
+                    <h6 class="section-title mb-0">About <em class="blue-text">Obselite</em> Athlete</h6>
+                    <h6 class="section-subtitle mb-4">The best in skills development</h6>
+                    <p>
+                        O.A is a youth-driven sports and wellness training facility supporting vulnerable youth in Nelson Mandela Bay.
+                        We collaborate with an NGO to offer weekly sports and development sessions for primary school children in the local community.
+                    </p>
+                    <img src="assets/imgs/about.jpg" alt="" class="w-100 mt-3 shadow-sm">
+                </div>
+                <div class="col-md-6 pl-md-5">
+                    <div class="row">
+                        <div class="col-6">
+                            <img src="assets/imgs/about-1.jpg" alt="" class="w-100 shadow-sm">
+                        </div>
+                        <div class="col-6">
+                            <img src="assets/imgs/about-2.jpg" alt="" class="w-100 shadow-sm">
+                        </div>
+                        <div class="col-12 mt-4">
+                            <p>
+                                Our efforts are limited by the capacity of the aftercare facility, which currently serves only a select group of youngsters chosen by our NGO partner.
+                                To reach more youth and have a greater impact, we rely on donations.
+                            </p>
+                            <p>
+                                Your support, in any amount, is essential to our mission.
+                                Every contribution helps us assist more young people in the community and make a meaningful difference in their development and well-being.
+                            </p>
+                            <p>
+                                <b>All donations are welcomed and deeply appreciated.</b>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="service" class="section pt-0">
+        <br />
+        <div class="container">
+            <h6 class="section-title text-center">What We Offer</h6>
+            <h6 class="section-subtitle text-center mb-5 pb-3">At Obselite Athlete</h6>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card mb-4 mb-md-0 h-100">
+                        <div class="card-body d-flex flex-column">
+                            <small class="text-primary font-weight-bold">01</small>
+                            <h5 class="card-title mt-3">Annual MAKRO Fun Run</h5>
+                            <p class="mb-4">
+                                Join us for the Makro 5km Fun Run — a vibrant fundraiser supporting the OA Foundation! Run, walk, or jog to empower youth through sports and wellness.
+                            </p>
+                            <div class="mt-auto">
+                                <a href="https://www.webtickets.co.za/v2/event.aspx?itemid=1569599200" class="btn btn-outline-primary w-100">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card mb-4 mb-md-0 h-100">
+                        <div class="card-body d-flex flex-column">
+                            <small class="text-primary font-weight-bold">02</small>
+                            <h5 class="card-title mt-3">Donate to our Cause</h5>
+                            <p class="mb-4">
+                                Support our youth sports non-profit. We empower young people with life skills and resilience. Your donation creates opportunities for growth and success.
+                            </p>
+                            <div class="mt-auto">
+                                <a href="Donate.html" class="btn btn-outline-primary w-100">Donate</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card mb-4 mb-md-0 h-100">
+                        <div class="card-body d-flex flex-column">
+                            <small class="text-primary font-weight-bold">03</small>
+                            <h5 class="card-title mt-3">Event Gallery</h5>
+                            <p class="mb-4">
+                                Admin-powered photo uploads with public event viewing gallery.
+                            </p>
+                            <div class="mt-auto">
+                                <a href="Gallery.html" class="btn btn-outline-primary w-100">View Events</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="testmonial">
+        <div class="container">
+            <h6 class="section-title text-center mb-0">Meet The Team</h6>
+            <h6 class="section-subtitle text-center mb-4">The passionate individuals behind Obselite Athlete</h6>
+            <div class="row justify-content-center">
+                <div class="col-md-5 col-10 my-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="media align-items-center mb-3">
+                                <img class="mr-3" src="assets/imgs/lwanz.jpg" alt="Lwandile Mbengashe" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">
+                                <div class="media-body">
+                                    <h6 class="mt-0 mb-1" style="font-size: 1rem; font-weight: 600; line-height: 1.3; word-wrap: break-word;">Lwandile Mbengashe</h6>
+                                    <small class="text-muted">Co-Founder & Head Coach</small>
+                                </div>
+                            </div>
+                            <p class="mb-0"><i>"Don't watch the clock; do what it does. Keep going."</i> - Sam Levenson</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-5 col-10 my-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="media align-items-center mb-3">
+                                <img class="mr-3" src="assets/imgs/schuyler.jpg" alt="Schuyler Newman" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">
+                                <div class="media-body">
+                                    <h6 class="mt-0 mb-1" style="font-size: 1rem; font-weight: 600; line-height: 1.3; word-wrap: break-word;">Schuyler Newman</h6>
+                                    <small class="text-muted">Co-Founder & Program Director</small>
+                                </div>
+                            </div>
+                            <p class="mb-0"><i>"Every day is a new chance to be stronger than your excuses."</i> - Myself</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section has-img-bg pb-0">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-5 my-3">
+                    <h6 class="mb-0">Phone</h6>
+                    <p class="mb-4">+ 27 41 365 0995</p>
+                    <h6 class="mb-0">Open Hours</h6>
+                    <p class="mb-4">Daily 9:00 AM — 17:00 PM</p>
+                    <h6 class="mb-0">Our address</h6>
+                    <a class="ins-tile__text ins-tile__directions" href="https://www.google.com/maps/dir/?api=1&amp;destination=Port+Elizabeth%2C+South+Africa" target="_blank">
+                        <span class="ins-tile__directions-label">
+                            <span class="ins-tile__directions-label-inner ins-tile__format">Port Elizabeth, South Africa</span>
+                        </span>
+                        <svg width="24" height="24" viewBox="0 0 24 24">
+                            <path d="M19.76 11.44l-7.2-7.2a.773.773 0 00-1.12 0l-7.2 7.2c-.32.32-.32.8 0 1.12l7.2 7.2c.32.32.8.32 1.12 0l7.2-7.2c.32-.32.32-.8 0-1.12zm-6.263 2.812v-2.074H10.13v2.489H8.444v-3.319c0-.498.337-.83.843-.83h4.21V8.445l2.947 2.904-2.947 2.904z" fill="currentColor" fill-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                    <h6 class="mb-0">Contact Info</h6>
+                    <a href="tel:0796241419" class="ins-tile__phone">079 624 1419 </a>
+                    <br />
+                    <a href="mailto:o.athlete07@gmail.com" target="_self" class="ins-tile__email">o.athlete07@gmail.com</a>
+                </div>
+                <div class="col-md-7">
+                    <form action="https://formspree.io/f/meqdrllo" method="post">
+                        <h4 class="mb-4">Drop Us A Line</h4>
+                        <div class="form-row">
+                            <div class="form-group col-sm-4">
+                                <input type="text" class="form-control text-white rounded-0 bg-transparent" name="name" placeholder="Name">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <input type="email" class="form-control text-white rounded-0 bg-transparent" name="Email" placeholder="Email">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <input type="text" class="form-control text-white rounded-0 bg-transparent" name="subject" placeholder="Subject">
+                            </div>
+                            <div class="form-group col-12">
+                                <textarea name="message" cols="30" rows="4" class="form-control text-white rounded-0 bg-transparent" placeholder="Message"></textarea>
+                            </div>
+                            <div class="form-group col-12 mb-0">
+                                <button type="submit" class="btn btn-primary rounded w-md mt-3">Send</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <footer class="mt-5 py-4 border-top border-secondary">
+                <p class="mb-0 small">
+                    &copy;
+                    <script>document.write(new Date().getFullYear())</script>, Obselite Athlete Created By <a href="#" target="_blank">VCStudents.</a> All rights reserved
+                </p>
+            </footer>
+        </div>
+    </section>
+
+    <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
+    <script src="assets/vendors/bootstrap/bootstrap.bundle.js"></script>
+    <script src="assets/vendors/bootstrap/bootstrap.affix.js"></script>
+    <script src="assets/vendors/isotope/isotope.pkgd.js"></script>
+    <script src="assets/js/index.js"></script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDjvzocgNxRbVq2Re4P4wPrlFYUXLqQVIs",
+            authDomain: "oawebsite-569ef.firebaseapp.com",
+            projectId: "oawebsite-569ef",
+            storageBucket: "oawebsite-569ef.appspot.com",
+            messagingSenderId: "743749509769",
+            appId: "1:743749509769:web:6b56c73620951d59229c58",
+            databaseURL: "https://oawebsite-569ef-default-rtdb.firebaseio.com/"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        const userProfileContainer = document.getElementById('user-profile-container');
+        const userDropdown = document.getElementById('userDropdown');
+        const userNameSpan = document.getElementById('user-name');
+        const logoutBtn = document.getElementById('logout-btn');
+        const getStartedItem = document.getElementById('get-started-item');
+
+        function showToast(message, isError = false) {
+            const toast = document.createElement('div');
+            toast.className = `toast-notification ${isError ? 'error' : ''}`;
+            toast.innerHTML = `
+                                <i class="fas ${isError ? 'fa-exclamation-circle' : 'fa-check-circle'}"></i>
+                                <span>${message}</span>
+                            `;
+
+            document.body.appendChild(toast);
+
+            setTimeout(() => toast.classList.add('show'), 100);
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                console.log("User signed in:", user.email);
+
+                try {
+                    const userRef = ref(db, `users/${user.uid}`);
+                    const snapshot = await get(userRef);
+
+                    if (snapshot.exists()) {
+                        const userData = snapshot.val();
+                        userNameSpan.textContent = userData.name || user.email;
+                    } else {
+                        userNameSpan.textContent = user.email;
+                    }
+
+                    userDropdown.style.display = 'block';
+                    getStartedItem.style.display = 'none';
+
+                } catch (error) {
+                    console.error("Error fetching user data:", error);
+                    userNameSpan.textContent = user.email;
+                    userDropdown.style.display = 'block';
+                    getStartedItem.style.display = 'none';
+                }
+
+            } else {
+                console.log("User signed out");
+
+                userDropdown.style.display = 'none';
+                getStartedItem.style.display = 'block';
+            }
+        });
+
+        logoutBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+
+            const originalText = logoutBtn.innerHTML;
+            logoutBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Logging out...';
+            logoutBtn.disabled = true;
+
+            try {
+                await signOut(auth);
+                console.log("User logged out successfully");
+
+                showToast("Successfully logged out!");
+
+                logoutBtn.innerHTML = originalText;
+                logoutBtn.disabled = false;
+
+            } catch (error) {
+                console.error("Logout error:", error);
+                showToast("Logout failed. Please try again.", true);
+
+                logoutBtn.innerHTML = originalText;
+                logoutBtn.disabled = false;
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (userDropdown && !userDropdown.contains(e.target)) {
+                const dropdown = document.querySelector('.dropdown-menu');
+                if (dropdown && dropdown.classList.contains('show')) {
+                    userDropdown.click();
+                }
+            }
+        });
+
+    </script>
+
+</body>
+</html>

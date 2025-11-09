@@ -1,0 +1,545 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Authentication Page - Obselite Athlete</title>
+    <link rel="stylesheet" href="assets/css/auth.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --primary-red: #dc3545;
+            --dark-red: #c82333;
+            --black: #000000;
+            --dark-gray: #1a1a1a;
+            --medium-gray: #333333;
+            --light-gray: #f8f9fa;
+            --white: #ffffff;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--black) 0%, var(--dark-gray) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: 'Montserrat', sans-serif;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            color: var(--white);
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--white);
+            margin-bottom: 2rem;
+            font-weight: 600;
+            font-size: 2rem;
+        }
+
+        h1 {
+            font-weight: 700;
+            margin: 0;
+            color: var(--white);
+            font-size: 2rem;
+        }
+
+        p {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.6;
+            letter-spacing: 0.3px;
+            margin: 20px 0 30px;
+            color: #ccc;
+        }
+
+        span {
+            font-size: 13px;
+            color: #999;
+        }
+
+        a {
+            color: var(--primary-red);
+            font-size: 14px;
+            text-decoration: none;
+            margin: 15px 0;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+            a:hover {
+                color: var(--white);
+            }
+
+        button {
+            border-radius: 50px;
+            border: 2px solid var(--primary-red);
+            background-color: var(--primary-red);
+            color: var(--white);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 14px 45px;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            transition: var(--transition);
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4);
+        }
+
+            button:hover {
+                background-color: var(--dark-red);
+                border-color: var(--dark-red);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(220, 53, 69, 0.6);
+            }
+
+            button:active {
+                transform: translateY(0);
+            }
+
+            button:focus {
+                outline: none;
+                box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.3);
+            }
+
+            button.ghost {
+                background-color: transparent;
+                border-color: var(--white);
+                color: var(--white);
+            }
+
+                button.ghost:hover {
+                    background-color: var(--white);
+                    color: var(--primary-red);
+                    transform: translateY(-2px);
+                }
+
+        form {
+            background-color: var(--dark-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 50px;
+            height: 100%;
+            text-align: center;
+            border-radius: var(--border-radius);
+        }
+
+        input {
+            background-color: var(--medium-gray);
+            border: 2px solid var(--medium-gray);
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin: 10px 0;
+            width: 100%;
+            font-size: 14px;
+            transition: var(--transition);
+            font-family: 'Montserrat', sans-serif;
+            color: var(--white);
+        }
+
+            input:focus {
+                outline: none;
+                border-color: var(--primary-red);
+                background-color: var(--black);
+                box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.2);
+            }
+
+            input::placeholder {
+                color: #888;
+            }
+
+        .container {
+            background-color: var(--dark-gray);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+            width: 900px;
+            max-width: 100%;
+            min-height: 580px;
+            border: 1px solid var(--medium-gray);
+        }
+
+        .form-container {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            transition: all 0.6s ease-in-out;
+        }
+
+        .sign-in-container {
+            left: 0;
+            width: 50%;
+            z-index: 2;
+        }
+
+        .container.right-panel-active .sign-in-container {
+            transform: translateX(100%);
+        }
+
+        .sign-up-container {
+            left: 0;
+            width: 50%;
+            opacity: 0;
+            z-index: 1;
+        }
+
+        .container.right-panel-active .sign-up-container {
+            transform: translateX(100%);
+            opacity: 1;
+            z-index: 5;
+            animation: show 0.6s;
+        }
+
+        @keyframes show {
+            0%, 49.99% {
+                opacity: 0;
+                z-index: 1;
+            }
+
+            50%, 100% {
+                opacity: 1;
+                z-index: 5;
+            }
+        }
+
+        .overlay-container {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            transition: transform 0.6s ease-in-out;
+            z-index: 100;
+        }
+
+        .container.right-panel-active .overlay-container {
+            transform: translateX(-100%);
+        }
+
+        .overlay {
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--black) 100%);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 0 0;
+            color: var(--white);
+            position: relative;
+            left: -100%;
+            height: 100%;
+            width: 200%;
+            transform: translateX(0);
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .container.right-panel-active .overlay {
+            transform: translateX(50%);
+        }
+
+        .overlay-panel {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 50px;
+            text-align: center;
+            top: 0;
+            height: 100%;
+            width: 50%;
+            transform: translateX(0);
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .overlay-left {
+            transform: translateX(-20%);
+        }
+
+        .container.right-panel-active .overlay-left {
+            transform: translateX(0);
+        }
+
+        .overlay-right {
+            right: 0;
+            transform: translateX(0);
+        }
+
+        .container.right-panel-active .overlay-right {
+            transform: translateX(20%);
+        }
+
+        .social-container {
+            margin: 25px 0;
+        }
+
+            .social-container a {
+                border: 2px solid var(--medium-gray);
+                border-radius: 50%;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0 8px;
+                height: 50px;
+                width: 50px;
+                transition: var(--transition);
+                color: #ccc;
+            }
+
+                .social-container a:hover {
+                    border-color: var(--primary-red);
+                    color: var(--primary-red);
+                    transform: translateY(-2px);
+                }
+
+        footer {
+            background-color: var(--black);
+            color: var(--white);
+            font-size: 13px;
+            bottom: 0;
+            position: fixed;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 999;
+            padding: 15px 0;
+            border-top: 1px solid var(--medium-gray);
+        }
+
+            footer p {
+                margin: 5px 0;
+                color: #999;
+            }
+
+            footer i {
+                color: var(--primary-red);
+            }
+
+            footer a {
+                color: var(--primary-red);
+                text-decoration: none;
+            }
+
+        .toast-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary-red);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 10000;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+        }
+
+            .toast-notification.show {
+                transform: translateX(0);
+            }
+
+            .toast-notification.success {
+                background: #28a745;
+            }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 100%;
+                min-height: 500px;
+            }
+
+            h1, h2 {
+                font-size: 1.5rem;
+            }
+
+            .overlay-panel {
+                padding: 0 30px;
+            }
+
+            form {
+                padding: 0 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Get Started with Obselite Athlete</h2>
+
+    <div class="container" id="container">
+
+        <div class="form-container sign-up-container">
+            <form id="signupForm">
+                <h1>Create Account</h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your email for registration</span>
+                <input type="text" id="signupName" placeholder="Name" required />
+                <input type="email" id="signupEmail" placeholder="Email" required />
+                <input type="password" id="signupPassword" placeholder="Password" required />
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+
+
+        <div class="form-container sign-in-container">
+            <form id="loginForm">
+                <h1>Sign in</h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your account</span>
+                <input type="email" id="loginEmail" placeholder="Email" required />
+                <input type="password" id="loginPassword" placeholder="Password" required />
+                <button type="submit">Sign In</button>
+            </form>
+        </div>
+
+
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Welcome Back!</h1>
+                    <p>To keep connected with us please login with your personal info</p>
+                    <button class="ghost" id="signIn">Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Enter your personal details and start journey with us</p>
+                    <button class="ghost" id="signUp">Sign Up</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+        import { getDatabase, ref, set, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-database.js";
+
+        function showToast(message, isSuccess = false) {
+            const toast = document.createElement('div');
+            toast.className = `toast-notification ${isSuccess ? 'success' : ''}`;
+            toast.innerHTML = `
+                    <i class="fas ${isSuccess ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                    <span>${message}</span>
+                `;
+
+            document.body.appendChild(toast);
+
+            setTimeout(() => toast.classList.add('show'), 100);
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDjvzocgNxRbVq2Re4P4wPrlFYUXLqQVIs",
+            authDomain: "oawebsite-569ef.firebaseapp.com",
+            projectId: "oawebsite-569ef",
+            storageBucket: "oawebsite-569ef.appspot.com",
+            messagingSenderId: "743749509769",
+            appId: "1:743749509769:web:6b56c73620951d59229c58",
+            databaseURL: "https://oawebsite-569ef-default-rtdb.firebaseio.com/"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+
+        const signupForm = document.getElementById("signupForm");
+        const loginForm = document.getElementById("loginForm");
+
+
+        signupForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const name = document.getElementById("signupName").value;
+            const email = document.getElementById("signupEmail").value;
+            const password = document.getElementById("signupPassword").value;
+
+            const button = e.target.querySelector('button');
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+            button.disabled = true;
+
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const uid = userCredential.user.uid;
+
+
+                const usersRef = ref(db, `users/${uid}`);
+                await set(usersRef, { name, email, createdAt: serverTimestamp() });
+
+                showToast("✅ Account created successfully!", true);
+                setTimeout(() => {
+                    window.location.href = "index.html";
+                }, 1500);
+            } catch (err) {
+                showToast("Signup Error: " + err.message);
+                button.innerHTML = originalText;
+                button.disabled = false;
+            }
+        });
+
+
+        loginForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const email = document.getElementById("loginEmail").value;
+            const password = document.getElementById("loginPassword").value;
+
+            const button = e.target.querySelector('button');
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing In...';
+            button.disabled = true;
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                showToast("✅ Login successful!", true);
+                setTimeout(() => {
+                    window.location.href = "index.html";
+                }, 1500);
+            } catch (err) {
+                showToast("Login Error: " + err.message);
+                button.innerHTML = originalText;
+                button.disabled = false;
+            }
+        });
+
+
+        const signUpButton = document.getElementById('signUp');
+        const signInButton = document.getElementById('signIn');
+        const container = document.getElementById('container');
+
+        signUpButton.addEventListener('click', () => container.classList.add("right-panel-active"));
+        signInButton.addEventListener('click', () => container.classList.remove("right-panel-active"));
+
+    </script>
+
+</body>
+</html>

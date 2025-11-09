@@ -381,7 +381,7 @@
                         <a class="nav-link" href="#contact">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="gallery.html">Gallery</a>
+                        <a class="nav-link" href="Gallery.html">Gallery</a>
                     </li>
 
                     <li class="nav-item dropdown" id="user-profile-container">
@@ -412,6 +412,11 @@
                     <li class="nav-item" id="get-started-item">
                         <a href="Authentication.html" class="ml-4 nav-link btn btn-primary btn-sm rounded">
                             <i class="fas fa-user-plus me-1"></i>Get Started
+                        </a>
+                    </li>
+                    <li class="nav-item" id="logout-item">
+                        <a href="Authentication.html" class="ml-4 nav-link btn btn-primary btn-sm rounded">
+                            <i class="fas fa-sign-out-alt me-1"></i>Logout
                         </a>
                     </li>
                 </ul>
@@ -516,7 +521,7 @@
                                 Admin-powered photo uploads with public event viewing gallery.
                             </p>
                             <div class="mt-auto">
-                                <a href="childminding.html" class="btn btn-outline-primary w-100">View Events</a>
+                                <a href="Gallery.html" class="btn btn-outline-primary w-100">View Events</a>
                             </div>
                         </div>
                     </div>
@@ -652,9 +657,9 @@
             const toast = document.createElement('div');
             toast.className = `toast-notification ${isError ? 'error' : ''}`;
             toast.innerHTML = `
-                            <i class="fas ${isError ? 'fa-exclamation-circle' : 'fa-check-circle'}"></i>
-                            <span>${message}</span>
-                        `;
+                                    <i class="fas ${isError ? 'fa-exclamation-circle' : 'fa-check-circle'}"></i>
+                                    <span>${message}</span>
+                                `;
 
             document.body.appendChild(toast);
 

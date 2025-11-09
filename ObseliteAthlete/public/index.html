@@ -218,44 +218,6 @@
             color: var(--white);
         }
 
-        .dropdown-menu {
-            background: var(--medium-gray);
-            border: 1px solid var(--medium-gray);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            border-radius: 12px;
-            padding: 10px 0;
-            min-width: 200px;
-        }
-
-        .dropdown-item {
-            color: var(--white);
-            padding: 10px 20px;
-            font-weight: 500;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-            .dropdown-item:hover {
-                background: var(--primary-red);
-                color: var(--white);
-            }
-
-            .dropdown-item.text-danger {
-                color: var(--primary-red) !important;
-            }
-
-                .dropdown-item.text-danger:hover {
-                    background: var(--primary-red);
-                    color: var(--white) !important;
-                }
-
-        .dropdown-divider {
-            border-color: var(--medium-gray);
-            margin: 8px 0;
-        }
-
         .toast-notification {
             position: fixed;
             top: 20px;
@@ -339,6 +301,18 @@
             cursor: pointer;
         }
 
+        .user-buttons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+            .user-buttons .btn {
+                padding: 8px 16px;
+                font-size: 12px;
+                white-space: nowrap;
+            }
+
         @media (max-width: 768px) {
             .header .title {
                 font-size: 2.5rem;
@@ -352,6 +326,17 @@
             .card-body {
                 padding: 1.5rem;
             }
+
+            .user-buttons {
+                flex-direction: column;
+                gap: 5px;
+                width: 100%;
+                margin-top: 10px;
+            }
+
+                .user-buttons .btn {
+                    width: 100%;
+                }
         }
     </style>
 </head>
@@ -384,29 +369,15 @@
                         <a class="nav-link" href="Gallery.html">Gallery</a>
                     </li>
 
-                    <li class="nav-item dropdown" id="user-profile-container">
-                        <a class="nav-link dropdown-toggle btn btn-primary btn-sm rounded" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="display: none;">
-                            <i class="fas fa-user me-1"></i>
-                            <span id="user-name">Account</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li>
-                                <a class="dropdown-item" href="Profile.html">
-                                    <i class="fas fa-user-circle me-2"></i>Profile
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="donate.html">
-                                    <i class="fas fa-donate me-2"></i>Donate
-                                </a>
-                            </li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <a class="dropdown-item text-danger" href="#" id="logout-btn">
-                                    <i class="fas fa-sign-out-alt me-2"></i>Logout
-                                </a>
-                            </li>
-                        </ul>
+                    <li class="nav-item" id="user-buttons-container" style="display: none;">
+                        <div class="user-buttons">
+                            <a href="Profile.html" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-user-circle me-1"></i>Profile
+                            </a>
+                            <button id="logout-btn" class="btn btn-primary btn-sm">
+                                <i class="fas fa-sign-out-alt me-1"></i>Logout
+                            </button>
+                        </div>
                     </li>
 
                     <li class="nav-item" id="get-started-item">
@@ -642,9 +613,7 @@
         const auth = getAuth(app);
         const db = getDatabase(app);
 
-        const userProfileContainer = document.getElementById('user-profile-container');
-        const userDropdown = document.getElementById('userDropdown');
-        const userNameSpan = document.getElementById('user-name');
+        const userButtonsContainer = document.getElementById('user-buttons-container');
         const logoutBtn = document.getElementById('logout-btn');
         const getStartedItem = document.getElementById('get-started-item');
 
@@ -652,9 +621,9 @@
             const toast = document.createElement('div');
             toast.className = `toast-notification ${isError ? 'error' : ''}`;
             toast.innerHTML = `
-                                <i class="fas ${isError ? 'fa-exclamation-circle' : 'fa-check-circle'}"></i>
-                                <span>${message}</span>
-                            `;
+                    <i class="fas ${isError ? 'fa-exclamation-circle' : 'fa-check-circle'}"></i>
+                    <span>${message}</span>
+                `;
 
             document.body.appendChild(toast);
 
@@ -676,25 +645,22 @@
 
                     if (snapshot.exists()) {
                         const userData = snapshot.val();
-                        userNameSpan.textContent = userData.name || user.email;
-                    } else {
-                        userNameSpan.textContent = user.email;
+                        console.log("User data:", userData);
                     }
 
-                    userDropdown.style.display = 'block';
+                    userButtonsContainer.style.display = 'block';
                     getStartedItem.style.display = 'none';
 
                 } catch (error) {
                     console.error("Error fetching user data:", error);
-                    userNameSpan.textContent = user.email;
-                    userDropdown.style.display = 'block';
+                    userButtonsContainer.style.display = 'block';
                     getStartedItem.style.display = 'none';
                 }
 
             } else {
                 console.log("User signed out");
 
-                userDropdown.style.display = 'none';
+                userButtonsContainer.style.display = 'none';
                 getStartedItem.style.display = 'block';
             }
         });
@@ -703,7 +669,7 @@
             e.preventDefault();
 
             const originalText = logoutBtn.innerHTML;
-            logoutBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Logging out...';
+            logoutBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Logging out...';
             logoutBtn.disabled = true;
 
             try {
@@ -721,15 +687,6 @@
 
                 logoutBtn.innerHTML = originalText;
                 logoutBtn.disabled = false;
-            }
-        });
-
-        document.addEventListener('click', (e) => {
-            if (userDropdown && !userDropdown.contains(e.target)) {
-                const dropdown = document.querySelector('.dropdown-menu');
-                if (dropdown && dropdown.classList.contains('show')) {
-                    userDropdown.click();
-                }
             }
         });
 
